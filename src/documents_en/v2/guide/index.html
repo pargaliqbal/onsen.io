@@ -1,115 +1,202 @@
----
-title: 'Getting Started'
-order: 20
-tocGroup: guide
-layout: docs.html.eco
-description: 'Lean how to get started with Onsen UI, the Web Components based HTML5 mobile UI framework for hybrid and PWA. Works with Angular, React, Vue, Meteor and more.'
----
-
-<%- @markdown => %>
-
-### Getting Started
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/U_83GjDpGMU?ecver=1" frameborder="0" allowfullscreen></iframe>
-
->The official guide assumes basic level knowledge of HTML, CSS, and JavaScript. If you are totally new to JavaScript development, it might be the best to grasp the basics then come back and reading through the guide.
-
-
-#### What is Onsen UI?
-
-Onsen UI is...
-
-- A large set of rich **UI components** specifically designed for mobile apps
-- Packed with ready-to-implement features following **native iOS and Android design standards**
-- Free to use, **100% open source** software ([Apache v2 license](https://github.com/OnsenUI/OnsenUI/blob/master/LICENSE))
-
-Onsen UI enriches app users' mobile experience with natively designed UI elements. It's perfect for developing hybrid apps using Cordova or developing mobile web apps (also referred to as [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/)). For more information on these types of implementation, see [Deploy to PWA & Cordova](/v2/guide/deploy.html#deploying-your-app).
-
-##### Future-Proof Architecture
-
-Under the hood, Onsen UI consists of three layers:
-
-1. **CSS Components**, written in [cssnext](http://cssnext.io/), the next generation of CSS
-2. **Web Components**, written in native JavaScript to **support ALL frameworks**
-3. **Framework Bindings**, created for tighter integration with popular frameworks such as [Vue.js](vue), [AngularJS 1](angular1), [Angular 2+](angular2), and [React](react)
-
-In a nutshell, Onsen UI simplifies your development, works with any framework, and is **future proof**!
-
-Interested in a deep dive? Check out our [Onsen UI Architecture](architecture.html) section.
-
-##### What's Included (Kitchensink)
-
-Here you can try out the majority of Onsen UI's components in a quick sample demo app (kitchen sink app). The two apps below are actually sharing the same source code but are styled to fit their respective platforms using the [Auto Styling](theming.html#auto-styling) feature.
-
-<iframe class="tutorial-embed" width="100%" height="568" src="<%- @getTutorialUrl "embed-compact", "vanilla/common_patterns/kitchensink", false %>"></iframe>
-
-For those interested in the complete list of components, please take a look at the [CSS Components](../api/css.html) and the [Web Components](../api/js).
-
-##### Browser and Device Support
-
-Onsen UI is fully optimized and tested for the following platforms.
-
-- Mobile
-  - **iOS 9 and up**
-  - **Android 4.4.4 and up** with WebView or Chrome browser
-    (Android 4.0 and up with [Crosswalk engine](https://crosswalk-project.org/))
-- Desktop
-  - Latest version of Safari browser
-  - Latest version of Chrome browser
-
-For other platforms, please be aware that some components or features may not work correctly. Please see [Old Browser Support](/v2/guide/faq.html#old-browsers) for details.
-
-#### The First Onsen UI App
-
-Now that you’re familiar with what Onsen UI is all about, it's time to start creating your own app. For quicker installation, let's use the CDN served files.
-First, create a file called `index.html` and paste the following HTML.
-
-```html
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
-  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <title>Katalog Film</title>
+  <link rel="stylesheet" href="css/font_awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/onsenui.min.css">
+  <link rel="stylesheet" href="css/onsen-css-components.min.css">
+  <script src="js/onsenui.min.js"></script>
+  <script src="js/jquery.js"></script>
 </head>
 <body>
-  <ons-button onclick="alert('Hello World!')">Click Me</ons-button>
+  <ons-splitter>
+    <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
+      <ons-page>
+        <ons-list>
+          <ons-list-item onclick="fn.load('home.html')" tappable>
+            Beranda
+          </ons-list-item>
+          <ons-list-item onclick="fn.load('film.html')" tappable>
+            Pencarian Film
+          </ons-list-item>
+          <ons-list-item onclick="fn.load('nowPlaying.html')" tappable>
+            Sedang Tayang
+          </ons-list-item>
+          <ons-list-item onclick="fn.load('upcoming.html')" tappable>
+            Film Release Terdekat
+          </ons-list-item>
+          <ons-list-item onclick="fn.load('about.html')" tappable>
+            About
+          </ons-list-item>
+        </ons-list>
+      </ons-page>
+    </ons-splitter-side>
+    <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
+  </ons-splitter>
+ 
+  <template id="home.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          Beranda
+        </div>
+      </ons-toolbar>
+      <div style="height: 200px; padding: 1px 0 0 0;">
+        <div class="card card--material">
+          <div class="card__title card--material__title" style="text-align: center">
+            Selamat Datang Di Aplikasi Katalog Film
+          </div>
+          <br>
+          <div class="card__content card--material__content" style="text-align: justify;">
+            Menonton Film adalah hiburan tersendiri bagi penikmatnya. Ayo cari tau informasi film yang akan ditonton atau bahkan yang sudah ditonton. 
+          </div>
+          <br>
+          <div>
+            <img src="images/marvel.jpg" width="100%">
+          </div>
+          <br>
+          <div class="card__content card--material__content" style="text-align: justify;">
+            Pada aplikasi ini terdapat beberapa menu yang berkaitan dengan data film. Terdapat menu pencarian film yang digunakan untuk melakukan pencarian film yang dikehendaki dengan menginputkan judul film. Selain itu terdapat menu untuk melihat Film yang sedang tayang saat ini di bioskop, serta menu untuk melihat Film yang akan segera release di pasaran. 
+          </div>
+          <br>
+        </div>
+      </div>
+    </ons-page>
+  </template>
+ 
+  <template id="film.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          Pencarian Film
+        </div>
+      </ons-toolbar>
+      <div style="height: 200px; padding: 1px 0 0 0;">
+        <div class="card card--material">
+          <div class="card__title card--material__title">Cari Film </div>
+          <div class="card__content card--material__content" style="text-align: justify;">
+            <ons-search-input placeholder="Masukkan Judul Film" id="input" onchange="cari()"></ons-search-input>
+            <br>
+            <div id="isiPencarianFilm"></div>
+          </div>
+        </div>
+      </div>
+    </ons-page>
+  </template>
+ 
+  <template id="nowPlaying.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          Sedang Tayang
+        </div>
+      </ons-toolbar>
+      <div style="height: 200px; padding: 1px 0 0 0;">
+        <div class="card card--material">
+          <div class="card__title card--material__title">Film yang Sedang Tayang </div>
+          <div class="card__content card--material__content" style="text-align: justify;">
+            <div id="isiNowPlaying"></div>
+          </div>
+        </div>
+      </div>
+    </ons-page>
+  </template>
+ 
+  <template id="upcoming.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          Film Release Terdekat
+        </div>
+      </ons-toolbar>
+      <div style="height: 200px; padding: 1px 0 0 0;">
+        <div class="card card--material">
+          <div class="card__title card--material__title">Film yang akan Release</div>
+          <div class="card__content card--material__content" style="text-align: justify;">
+            <div id="isiUpcoming"></div>
+          </div>
+        </div>
+      </div>
+    </ons-page>
+  </template>
+ 
+  <template id="about.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          About
+        </div>
+      </ons-toolbar>
+      <div style="height: 200px; padding: 1px 0 0 0;">
+        <div class="card card--material">
+          <div class="card__title card--material__title">Tentang Kami</div>
+          <div class="card__content card--material__content">
+            <div class="card__content card--material__content" style="text-align: justify;">
+              Aplikasi Katalog Film v.1.0.1 
+            </div>
+          </div>
+          <br>
+          <div class="card__content card--material__content">
+            <div class="card__content card--material__content" style="text-align: justify;">
+              Silakan hubungi jika ada pertanyaan maupun jika menemukan bug melalui media yang tersedia di bawah ini.
+            </div>
+          </div>
+        </div>
+        <ons-list modifier="inset">
+          <ons-list-item>
+            <div class="left">
+              <i class="fa fa-map-o fa-2x" aria-hidden="true"></i>
+            </div>
+            <div class="center">
+              <span class="list-item__title">Alamat</span><span class="list-item__subtitle">STMIK Widya Pratama, Jl Patriot No.25 Pekalongan</span>
+            </div>
+          </ons-list-item>
+          <ons-list-item>
+            <div class="left">
+              <i class="fa fa-whatsapp fa-2x" aria-hidden="true"></i>
+            </div>
+            <div class="center">
+              <span class="list-item__title">Whatsapp</span><span class="list-item__subtitle">+6285640091681</span>
+            </div>
+          </ons-list-item>
+          <ons-list-item>
+            <div class="left">
+              <i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i>
+            </div>
+            <div class="center">
+              <span class="list-item__title">Email</span><span class="list-item__subtitle">reza.stmikwp@gmail.com</span>
+            </div>
+          </ons-list-item>
+        </ons-list>
+      </div>
+    </ons-page>
+  </template>
+ 
+  <script src="js/main.js"></script>  
 </body>
 </html>
-```
-
-<img src="/images/guide/first_onsen_ui_app.png" style="border: 1px solid #ccc;">
-
-While this may be rudimentary, this example contains some important aspects of Onsen UI components as below.
-- You need to include two CSS files (`onsenui.css` and `onsen-css-components.min.css`) and one JavaScript file (`onsenui.min.js`).
-- In the code above, `<ons-button>` component is used. It is our custom tag that represents a button. All Onsen UI branded components have the `ons-` prefix.
-- Like other standard tags (or HTML elements), Onsen UI components have attributes (in this case `onclick`), methods and event listeners. Read more in [Attributes, Properties, Methods and Events](/v2/guide/fundamentals.html#attributes-properties-methods-and-events).
-
-Congratulations! You've covered all the basics to get started. Now find Onsen UI components (i.e. `<ons-input>`, `<ons-icon>`, `<ons-carousel>`...) from [our collection](../api/js), and put them in your app. It's that simple.
-
->Tips on native alert: You may have noticed, default `alert()` function does not fit with native app design. Therefore, Onsen UI provides [`ons.notification`](../api/js/ons.notification.html) object for dialogs. Try replacing `alert` with `ons.notification.alert`!
-><img src="/images/guide/first_onsen_ui_app_native_alert.png" style="margin-top: 16px; border: 1px solid #ccc;">
-
-#### Making Your Web & Hybrid App Feel Native
-
-Even though an app may emulate the visual components of iPhone or Android, the goal of a seamless app is to ensure that touch & feel also meets users' expectations. That's where the users feel the "uncanny valley".
-
-To fill the gap, Onsen UI gives you the ability to simulate things like page transition animations and the ripple effect, and gives genuine and high quality feeling to your app. Such details make a huge difference.
-
-<iframe class="tutorial-embed" width="100%" height="568" src="<%- @getTutorialUrl "embed-compact", "vanilla/reference/navigator", false %>"></iframe>
-
-In the above example, there are two pages defined by `<ons-page>` component. Then, `<ons-navigator>` component provides native-like page transition. If you want to make your app more native-like, please proceed to [Fundamentals](/v2/guide/fundamentals.html) to learn how to fully utilize the details.
-
-In Onsen UI, everything from visual widgets to small details are carefully crafted to help your application look fully native.
-
-#### Useful Resources
-
-Also check out these resources to get you up and running in no time.
-
-- [Playground](/playground/) (Interactive Tutorials): CodePen like tutorial and live coding
-- [Sample apps](/samples): Great starting point for those who want to see the actual code
-- [Showcase](https://monaca.io/great-apps.html): See what apps people are making
-- [Udemy video course](https://www.udemy.com/learn-to-build-your-first-apache-cordova-app/) & [YouTube getting started video](https://www.youtube.com/watch?v=G7CaEEr8kBs)
-
-<% end %>
-
